@@ -8,8 +8,8 @@ import StarRating from './Components/StarRating';
 import Step1 from './Components/Step1';
 import Step2 from './Components/Step2';
 import Step3 from './Components/Step3';
-import Stepp4 from './Components/Stepp4';
 import Step4 from './Components/Step4';
+import Stepp4 from './Components/Stepp4';
 
 const schema = yup.object().shape({
   firstName: yup.string().required('First name is required'),
@@ -19,8 +19,8 @@ const schema = yup.object().shape({
   address: yup.string().required('Address is required'),
   city: yup.string().required('City is required'),
   zip: yup.string().required('ZIP Code is required'),
-  photo: yup.mixed(), 
-  rating: yup.number().min(1).max(5).required('Rating is required'),
+  photo: yup.mixed(), // Optional validation
+  rating: yup.number().min(1).max(5).required('Rating is required'), // Rating validation
 });
 
 const StarRatingForm = ({ control }) => (
@@ -52,7 +52,7 @@ const MultiStepForm = () => {
   };
 
   const handleLast = () => {
-    setStep(5);
+    setStep(6);
     navigate('/stepp4');
   };
 
@@ -64,8 +64,8 @@ const MultiStepForm = () => {
   };
 
   const handleRating = () => {
-    setStep(6);
-    navigate('/rating');
+    setStep(5);
+    navigate('/step5');
   };
 
   return (
@@ -77,13 +77,13 @@ const MultiStepForm = () => {
           <Route path="/step3" element={<Step3 />} />
           <Route path="/step4" element={<Step4 />} />
           <Route path="/stepp4" element={<Stepp4 data={formData} />} />
-          <Route path="/rating" element={<StarRatingForm control={methods.control} />} />
+          <Route path="/step5" element={<StarRatingForm control={methods.control} />} />
         </Routes>
 
         <div>
           {step > 1 && step < 4 && <button type="button" onClick={handlePrev}>Previous</button>}
           {step < 4 && <button type="button" onClick={handleNext}>Next</button>}
-          {step === 4 && <button type="button" onClick={handleRating}>Rate Us</button>}
+          {step === 4 && <button type="button" onClick={handleRating}>Submit</button>}
           {step === 5 && <button type="submit">Final Submit</button>}
         </div>
       </form>
